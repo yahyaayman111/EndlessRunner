@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+
+    
+
+
     [Header("---------------Run State---------------")]
     public float playerSpeed = 2;
     public float horizontalSpeed = 3;
@@ -32,6 +38,9 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
 
         transform.Translate(Vector3.right * x * horizontalSpeed * Time.deltaTime);
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, leftLimit, rightLimit);
+        transform.position = pos;
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
@@ -56,11 +65,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Obstacle"))
-    //    {
-    //        //Logic for Losing
-    //    }
-    //}
+   
 }
